@@ -45,4 +45,10 @@ v1.4.3:
 - Fixed FBX scaling problem
 - All checked  by default
 
+v1.4.4:
+
+- Added quick decimator panel, there you will find 3 quick un-subdivide options 50%, 65%,80%. You can apply and remove the un-subdivide modifier from the mesh of your choosing.
+- Toggled on face orientation in 3d viewport if an artist tries to export a non water tight model, so that they can quickly spot where the non manifold edges are.
+- Moved the fill-gaps button under the kaedim export tab.
+
 When updating version make sure to edit addon_constructor.py line 22, kaedimexpoorter.py line 4 and addon_updater.py line 25
