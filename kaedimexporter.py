@@ -306,7 +306,7 @@ class deimate_panel(bpy.types.Panel):
         row.operator('deci.operator_3', text="Decimate 80%")
         row = layout.row()
         row.operator('deci.apply', text="Apply")
-        row.operator('deci.clear', text="Clear")
+        row.operator('deci.clear', text="Remove")
 
 
 # operator for level 1 decimation
