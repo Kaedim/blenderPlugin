@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Kaedim 3D Artist Utilities",
     "author": "Kaedim",
-    "version": (1, 4, 4),
+    "version": (1, 4, 5),
     "blender": (3, 1, 0),
     "location": "View3D > Toolbar(N) > Kaedim Exporter",
     "description": "Tools to make.",
