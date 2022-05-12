@@ -253,8 +253,8 @@ class Watertight(bpy.types.Operator):
     bl_idname = 'watertight.operator'
 
     def execute(self, context):
-
-        bpy.ops.object.editmode_toggle()
+        if bpy.context.active_object.mode != 'EDIT':
+            bpy.ops.object.editmode_toggle()
         bpy.ops.mesh.select_mode(type='VERT')
         bpy.ops.mesh.reveal()
         bpy.ops.mesh.select_all(action='SELECT')
@@ -279,7 +279,7 @@ class Watertight(bpy.types.Operator):
         bpy.ops.mesh.select_all(action='SELECT')
         bpy.ops.mesh.normals_make_consistent()
         bpy.ops.object.editmode_toggle()
-        bpy.ops.mesh.print3d_clean_non_manifold()
+        # bpy.ops.mesh.print3d_clean_non_manifold()
        
         return {'FINISHED'}
 
