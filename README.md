@@ -60,4 +60,4 @@ v1.4.6:
 - Fixed bug in watertight check
 - Added functionality to highlight the not watertight parts of the model
 
-When updating version make sure to edit addon_constructor.py line 22, kaedimexpoorter.py line 4 and addon_updater.py line 25
+When updating version make sure to edit addon_constructor.py line 22, kaedimexpoorter.py line 4 and addon_updater.py line 25 _init_.py line 23
