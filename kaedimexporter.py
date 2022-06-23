@@ -1,7 +1,7 @@
 bl_info = {
     "name": "Kaedim 3D Artist Utilities",
     "author": "Kaedim",
-    "version": (1, 4, 5),
+    "version": (1, 4, 6),
     "blender": (3, 1, 0),
     "location": "View3D > Toolbar(N) > Kaedim Exporter",
     "description": "Tools to make.",
@@ -20,12 +20,20 @@ from bpy.types import (Panel, Operator, AddonPreferences, PropertyGroup)
 def checkWatertight():
     watertight=False
     edit=False
-    if bpy.context.active_object.mode != 'EDIT':
-        edit=True
-        bpy.ops.object.editmode_toggle()
+
+    for current_object in bpy.context.selected_objects:
+        if current_object.mode != 'EDIT':
+            edit = True
+            bpy.ops.object.editmode_toggle()
+
+
     bpy.ops.mesh.select_mode(type="VERT")
     bpy.ops.mesh.select_non_manifold(extend=False, use_wire=True, use_boundary=True, use_multi_face=False, use_non_contiguous=False, use_verts=True)
-    selectedEdges = [e for e in bpy.context.active_object.data.edges if e.select]
+    selectedEdges = []
+    for current_object in bpy.context.selected_objects:
+        temp = [e for e in current_object.data.edges if e.select]
+        if len(temp) > 0:
+            selectedEdges.append(temp)
     print(len(selectedEdges))
     if(len(selectedEdges)>0):
         watertight=True
@@ -86,6 +94,19 @@ class ExportFunction(Operator):
         print("-"*30)
         checkWatertight()
         if checkWatertight():
+            bpy.ops.object.editmode_toggle()
+            bpy.ops.mesh.select_mode(type='VERT')
+            bpy.ops.mesh.reveal()
+            bpy.ops.mesh.select_all(action='SELECT')
+            bpy.ops.mesh.delete_loose(use_verts=True, use_edges=True, use_faces=True)
+            bpy.ops.mesh.select_all(action='DESELECT')
+            bpy.ops.mesh.select_interior_faces()
+            bpy.ops.mesh.select_all(action='SELECT')
+            bpy.ops.mesh.remove_doubles(threshold=0.0001)
+            bpy.ops.mesh.select_all(action='SELECT')
+            bpy.ops.mesh.dissolve_degenerate(threshold=0.0001)
+            bpy.ops.mesh.select_non_manifold(extend=False, use_wire=True, use_boundary=True, use_multi_face=False,use_non_contiguous=False, use_verts=True)
+
             bpy.context.space_data.overlay.show_face_orientation = True
             raise Exception("Not Watertight")
 
